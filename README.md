@@ -1,8 +1,3 @@
-Claro. Aqui está o README **corrigido**, atualizado com o fluxo certo do Pyro5 (**não usa bytes manualmente**) e com um passo a passo completo incluindo **venv** (muito importante mesmo).
-
----
-
-````md
 # Sistema Clínica Veterinária — Trabalho 2 (Sistemas Distribuídos)
 
 **Universidade Federal do Ceará — Campus Quixadá**  
@@ -41,7 +36,7 @@ Verifique sua versão com:
 
 ```bash
 python3 --version
-````
+```
 
 ---
 
@@ -59,37 +54,31 @@ python3 -m venv venv
 
 ### Ativar o ambiente virtual
 
-#### Linux / Mac
+**Linux / Mac:**
 
 ```bash
 source venv/bin/activate
 ```
 
-#### Windows (PowerShell)
+**Windows (PowerShell):**
 
 ```powershell
 venv\Scripts\Activate.ps1
 ```
 
-#### Windows (Git Bash)
+**Windows (Git Bash):**
 
 ```bash
 source venv/Scripts/activate
 ```
 
-Após ativar, você verá algo como:
-
-```
-(venv)
-```
+Após ativar, você verá o prefixo `(venv)` no terminal.
 
 ---
 
 ## Dependências
 
-Este projeto utiliza a biblioteca **Pyro5** para implementação de RMI.
-
-Instale as dependências com:
+Este projeto utiliza a biblioteca **Pyro5** para implementação de RMI. Instale as dependências com:
 
 ```bash
 pip install -r requirements.txt
@@ -100,18 +89,10 @@ pip install -r requirements.txt
 ## Como Rodar o Projeto
 
 > **IMPORTANTE:** Sempre execute os comandos a partir da raiz do projeto:
->
 > ```
 > consultorio-veterinario-rmi/
 > ```
->
-> E sempre utilize:
->
-> ```
-> PYTHONPATH=src
-> ```
->
-> Isso faz com que o Python reconheça a pasta `src/` como raiz dos imports.
+> E sempre utilize `PYTHONPATH=src` para que o Python reconheça a pasta `src/` como raiz dos imports.
 
 ---
 
@@ -149,14 +130,14 @@ O sistema possui entidades que representam uma clínica veterinária, com os seg
 
 ### Herança ("é-um")
 
-* `Cachorro` é um `Animal`
-* `Gato` é um `Animal`
-* `Coelho` é um `Animal`
+- `Cachorro` é um `Animal`
+- `Gato` é um `Animal`
+- `Coelho` é um `Animal`
 
 ### Agregação ("tem-um")
 
-* `Estoque` possui uma lista de `ItemEstoque`
-* `Consulta` possui um animal associado (nome do animal)
+- `Estoque` possui uma lista de `ItemEstoque`
+- `Consulta` possui um animal associado (nome do animal)
 
 ---
 
@@ -164,14 +145,14 @@ O sistema possui entidades que representam uma clínica veterinária, com os seg
 
 O servidor disponibiliza o objeto remoto `ServicoClinicaVeterinaria` com os seguintes métodos remotos:
 
-| Método                     | Descrição                             |
-| -------------------------- | ------------------------------------- |
-| `cadastrar_animal()`       | Cadastra um novo animal na clínica    |
-| `listar_animais()`         | Lista todos os animais cadastrados    |
-| `registrar_consulta()`     | Registra uma nova consulta            |
-| `listar_consultas()`       | Lista todas as consultas registradas  |
-| `adicionar_item_estoque()` | Adiciona um item ao estoque           |
-| `consultar_estoque()`      | Exibe os itens disponíveis no estoque |
+| Método | Descrição |
+|---|---|
+| `cadastrar_animal()` | Cadastra um novo animal na clínica |
+| `listar_animais()` | Lista todos os animais cadastrados |
+| `registrar_consulta()` | Registra uma nova consulta |
+| `listar_consultas()` | Lista todas as consultas registradas |
+| `adicionar_item_estoque()` | Adiciona um item ao estoque |
+| `consultar_estoque()` | Exibe os itens disponíveis no estoque |
 
 ---
 
@@ -192,17 +173,17 @@ getRequest()
 sendReply()
 ```
 
-### Formato das mensagens
+### Formato das Mensagens
 
 As mensagens são estruturadas em formato JSON (representação externa de dados), contendo:
 
-* `objectReference`
-* `methodId`
-* `arguments`
+- `objectReference`
+- `methodId`
+- `arguments`
 
-### Observação Importante (Pyro5)
+### Observação sobre o Pyro5
 
-Apesar do protocolo Request/Reply ser implementado no formato JSON/dicionário, o **Pyro5 já faz automaticamente a serialização e transmissão dos dados**, portanto o sistema não utiliza `bytes` diretamente, evitando manipulação manual de sockets (conforme exigido no enunciado).
+O **Pyro5 realiza automaticamente a serialização e transmissão dos dados**, portanto o sistema não manipula `bytes` diretamente nem faz gerenciamento manual de sockets — conforme permitido pelo enunciado do trabalho.
 
 ---
 
@@ -224,8 +205,6 @@ PYRO:vetclinic@localhost:XXXXX
 
 Copie essa URI exatamente como exibida.
 
----
-
 ### Terminal 2 — Iniciar o Cliente RMI
 
 Com o ambiente virtual ativado:
@@ -242,12 +221,12 @@ Cole a URI exibida pelo servidor quando solicitado.
 
 No cliente, você pode:
 
-* Cadastrar animais (Cachorro, Gato, Coelho)
-* Listar animais cadastrados
-* Registrar consultas
-* Listar consultas
-* Adicionar itens no estoque
-* Consultar o estoque
+- Cadastrar animais (Cachorro, Gato, Coelho)
+- Listar animais cadastrados
+- Registrar consultas
+- Listar consultas
+- Adicionar itens no estoque
+- Consultar o estoque
 
 ---
 
@@ -255,20 +234,17 @@ No cliente, você pode:
 
 Este projeto atende ao enunciado do Trabalho 2 aplicando:
 
-* Comunicação Cliente-Servidor via RMI
-* Protocolo Request/Reply
-* Representação externa de dados (JSON)
-* Passagem por referência para objetos remotos (Proxy Pyro5)
-* Passagem por valor para entidades enviadas pelo cliente
-* Entidades com herança e agregação
+- Comunicação Cliente-Servidor via RMI
+- Protocolo Request/Reply
+- Representação externa de dados (JSON)
+- Passagem por referência para objetos remotos (Proxy Pyro5)
+- Passagem por valor para entidades enviadas pelo cliente
+- Entidades com herança e agregação
 
 ---
 
 ## Autores
 
-**Alfredo Borges do Nascimento Neto**
-**Gessyca de Oliveira Cunha**
+**Alfredo Borges do Nascimento Neto**  
+**Gessyca de Oliveira Cunha**  
 UFC — Campus Quixadá
-
-```
-```
